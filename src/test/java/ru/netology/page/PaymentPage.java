@@ -20,14 +20,14 @@ public class PaymentPage {                                                      
     private final SelenideElement cvcField = $("[placeholder='999']");                                          //приватное поле класса -поле cvc
     private final SelenideElement button = $$(".button").find(exactText("Продолжить"));                         //приватное поле класса -кнопка Продолжить
 
-    private final SelenideElement successNotification = $(".notification_status_ok");                           //приватное поле класса -уведомление об успешном завершении
-    private final SelenideElement errorNotification = $(".notification_status_error");                          //приватное поле класса -уведомление об ошибке
+    private final SelenideElement successNotification = $(byText("Успешно"));                           //приватное поле класса -уведомление об успешном завершении
+    private final SelenideElement errorNotification = $(byText("Ошибка"));                          //приватное поле класса -уведомление об ошибке
     private final SelenideElement wrongFormat = $(byText("Неверный формат"));                                  //приватное поле класса -неправильный формат
     private final SelenideElement invalidCardExpirationDate = $(byText("Неверно указан срок действия карты")); //приватное поле класса -недействительный срок действия карты
     private final SelenideElement cardExpired = $(byText("Истёк срок действия карты"));                        //приватное поле класса -срок действия карты истек
     private final SelenideElement emptyField = $(byText("Поле обязательно для заполнения"));                   //приватное поле класса -пустое поле
 
-                                                                               //публичные методы не возвращающие никаких данных
+
     public void fillPaymentFormat(DataHelper.CardInfo info) {                       //заполните формат платежа (данные карты для входа)
         cardNumberField.setValue(info.getCardNumber());                             //Поле с номером карты. устанавливает значение (получение номера карты)
         monthField.setValue(info.getMonth());                                       //поле месяца. устанавливает значение (получение месяца)
@@ -35,10 +35,12 @@ public class PaymentPage {                                                      
         ownerField.setValue(info.getOwner());                                       //поле владельца. устанавливает значение (получение владельца)
         cvcField.setValue(info.getCvc());                                           //поле cvc. устанавливает значение (получение cvc)
         button.click();                                                             //кнопка. кликнуть по ней.
+
     }
 
-    public void checkSuccessNotification() {                                      //проверьте уведомление об успешном завершении
-        successNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));  //уведомление об успешном завершении.сообщение видимое пользователю(проверяет условие, виден ли элемент, в течении 15 сек.)
+    public  void checkSuccessNotification() {                                      //проверьте уведомление об успешном завершении
+        successNotification.shouldBe(Condition.visible, Duration.ofSeconds(20));  //уведомление об успешном завершении.сообщение видимое пользователю(проверяет условие, виден ли элемент, в течении 15 сек.)
+
     }
 
     public void checkErrorNotification() {                                         //проверьте уведомление об ошибке
@@ -46,18 +48,18 @@ public class PaymentPage {                                                      
     }
 
     public void checkWrongFormat() {                                               //проверьте неправильный формат
-        wrongFormat.shouldBe(Condition.visible);                                   //неправильный формат.соощение видимое пользователю(проверяет условие, виден ли элемент)
+        wrongFormat.shouldBe(Condition.visible, Duration.ofSeconds(15));                                   //неправильный формат.соощение видимое пользователю(проверяет условие, виден ли элемент)
     }
 
     public void checkInvalidCardExpirationDate() {                                //проверьте срок действия недействительной карты
-        invalidCardExpirationDate.shouldBe(Condition.visible);                    //недействительный срок действия карты.соощение видимое пользователю(проверяет условие, виден ли элемент)
+        invalidCardExpirationDate.shouldBe(Condition.visible, Duration.ofSeconds(15));                    //недействительный срок действия карты.соощение видимое пользователю(проверяет условие, виден ли элемент)
     }
 
     public void verifyCardExpired() {                                             //срок действия подтверждающей карты истек
-        cardExpired.shouldBe(Condition.visible);                                  //срок действия карты истек.соощение успеха видимое пользователю(проверяет условие, виден ли элемент)
+        cardExpired.shouldBe(Condition.visible, Duration.ofSeconds(15));                                  //срок действия карты истек.соощение успеха видимое пользователю(проверяет условие, виден ли элемент)
     }
 
     public void verifyEmptyField() {                                             //проверьте пустое поле
-        emptyField.shouldBe(Condition.visible);                                  //пустое поле.соощение успеха видимое пользователю(проверяет условие, виден ли элемент)
+        emptyField.shouldBe(Condition.visible, Duration.ofSeconds(15));                                  //пустое поле.соощение успеха видимое пользователю(проверяет условие, виден ли элемент)
     }
 }

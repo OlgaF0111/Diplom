@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id "io.freefair.lombok" version "5.3.0"
-    id 'io.qameta.allure' version '2.10.0'
+    id "io.freefair.lombok" version "8.2.2"
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group 'ru.netology'
@@ -16,28 +16,21 @@ repositories {
 }
 
 dependencies {                                                              //внешние зависимости проекта
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'          //API манифестируется с помощью junit-jupiter-api
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'          //Средой выполнения является junit-jupiter-engine
-    testImplementation 'com.codeborne:selenide:6.17.0'                      //зависимость Селенид
-    testImplementation 'org.postgresql:postgresql:9.3-1102-jdbc41'          //это драйвер Java для базы данных PostgreSQL.
-    testImplementation 'com.github.javafaker:javafaker:1.0.2'               // библиотека позволяет заполнять поля случайным набором символов, красивыми и осмысленными строками. Поддерживает различные поля ввода и языки, в том числе и на русском языке.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    testImplementation 'commons-dbutils:commons-dbutils:1.7'
+    testImplementation 'com.codeborne:selenide:6.17.1'
     testImplementation 'mysql:mysql-connector-java:8.0.25'                  //Драйвер MySQL JDBC
-    testImplementation 'commons-dbutils:commons-dbutils:1.7'                //Библиотека представляет небольшой набор классов, предназначенных для облегчения обработки вызовов JDBC без утечки ресурсов и для получения более чистого кода
-    testImplementation 'org.postgresql:postgresql:42.3.8'                   //система управления базами данных
+    testImplementation 'org.postgresql:postgresql:9.3-1102-jdbc41'          //это драйвер Java для базы данных PostgreSQL.
+    testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
 
-    testImplementation 'org.aspectj:aspectjweaver:1.9.5'                    //настройка аллур
-    testImplementation 'io.qameta.allure:allure-selenide:2.17.3'
-    testImplementation 'io.qameta.allure:allure-junit5:2.17.3'
-    testImplementation 'io.qameta.allure:allure-commandline:2.17.3'
-    testImplementation 'io.qameta.allure:allure-assertj:2.17.3'
-    testImplementation 'io.qameta.allure:allure-rest-assured:2.17.3'
-    testImplementation 'io.qameta.allure:allure-java-commons:2.17.3'
 }
 
-test {        // Конфигурация тестового окружения
-    useJUnitPlatform()                                                               //предоставление платформы модульного тестирования инструменту сборки
-    systemProperty 'selenide.headless', System.getProperty('selenide.headless')       //systemProperty возвращает значение свойства, которое определяется ее строковым параметром (возвращает работу браузера в безголовом режиме)
-    systemProperty 'db.url', System.getProperty('db.url')                             //получении информации об адресе базы данных
+test {                                                                                            // Конфигурация тестового окружения
+    useJUnitPlatform()                                                                            //предоставление платформы модульного тестирования инструменту сборки
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')                   //systemProperty возвращает значение свойства, которое определяется ее строковым параметром (возвращает работу браузера в безголовом режиме)
+    systemProperty 'db.url', System.getProperty('db.url', 'jdbc:mysql://localhost:3306/app')      //получение информации об адресе базы данных
     systemProperty 'db.user', System.getProperty('db.user', 'app')
     systemProperty 'db.password', System.getProperty('db.password', 'pass')
     systemProperty 'sut.url', System.getProperty('sut.url', 'localhost:8080')

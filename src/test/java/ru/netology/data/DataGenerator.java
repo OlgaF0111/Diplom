@@ -11,95 +11,91 @@ public class DataGenerator {                                                    
     //методы используемые для тестовых данных
 
 
-
     //  НОМЕР КАРТЫ
 
-    public static String getApprovedCardNumber() {                                      //геттер возвращает утвержденный номер карты лежащий в поле
+    public static String getApprovedCardNumber() {
 
         return "4444 4444 4444 4441";
     }
 
-    public static String getDeclinedCardNumber() {                                      //геттер возвращает номер отклоненной карты
+    public static String getDeclinedCardNumber() {
 
         return "4444 4444 4444 4442";
     }
 
-    public static String getEmptyCardNumberField() {                                   //получить пустое поле номера карты
+    public static String getEmptyCardNumberField() {
 
         return "";
     }
 
-    public static String getIncorrectCardNumberWithOneDigit() {                        //получите номер карты с одной цифрой
+    public static String getIncorrectCardNumberWithOneDigit() {
 
         return "4";
     }
 
-    public static String getIncorrectCardNumberWithFifteenDigits() {                   //геттер возвращает номер карты из пятнадцати цифр
+    public static String getIncorrectCardNumberWithFifteenDigits() {
 
         return "4444 4444 4444 444";
     }
 
-    public static String getInvalidCardNumber() {                                      //геттер возвращает неверный номер карты с нулями
+    public static String getInvalidCardNumber() {
 
         return "0000 0000 0000 0000";
     }
 
-    public static String getAnotherBankFieldCardNumber() {                             //геттер возвращает другой номер банковской карты
+    public static String getAnotherBankFieldCardNumber() {
 
         return "4444 4444 4444 4443";
     }
 
 
-
     //  МЕСЯЦ
 
     public static String getShiftedMonthFromNow(int shiftedMonth) {                                    //Перенесенный месяц от текущего месяца (int сдвинутый месяц)
-        return LocalDate.now().plusMonths(shiftedMonth).format(DateTimeFormatter.ofPattern("MM"));     // класс,возвращает объект, который представляет текущую дату.+добавляет к дате некоторое количество месяцев.
+        return LocalDate.now().plusMonths(shiftedMonth).format(DateTimeFormatter.ofPattern("MM"));     //возвращает объект, который представляет текущую дату.+добавляет к дате некоторое количество месяцев.
     }                                                                                                  // формат (написания даты и времени. статический метод (ММ))
 
-    public static String getEmptyMonthField() {                                         //Пустое поле месяца
+    public static String getEmptyMonthField() {
 
         return "";
     }
 
-    public static String getIncorrectMonthWithOneDigit() {                              //Неправильный месяц с одной цифрой
+    public static String getIncorrectMonthWithOneDigit() {
 
         return "1";
     }
 
-    public static String getInvalidMonthIfFieldZeros() {                                //получите недопустимый месяц, если в поле есть нули
+    public static String getInvalidMonthIfFieldZeros() {
 
         return "00";
     }
 
-    public static String getInvalidMonth() {                                            //получить недействительный месяц
+    public static String getInvalidMonth() {
 
         return "13";
     }
 
 
-
     //  ГОД
 
-    public static String getShiftedYearFromNow(int shiftedYears) {                                  //Перенесенный на год вперед (int сдвинутые годы)
+    public static String getShiftedYearFromNow(int shiftedYears) {                                  //Перенесенный год от текущего (int сдвинутые годы)
         return LocalDate.now().plusYears(shiftedYears).format(DateTimeFormatter.ofPattern("yy"));   // класс,возвращает объект, который представляет текущую дату.+добавляет к дате некоторое количество лет.
     }                                                                                               // формат (написания даты и времени. статический метод (ГГ))
 
-    public static String getEmptyYearField() {                                          //получить пустое поле года
+    public static String getEmptyYearField() {
 
         return "";
     }
 
-    public static String getIncorrectYearWithOneDigit() {                                //получить неверный год с одной цифрой
+    public static String getIncorrectYearWithOneDigit() {
 
         return "1";
     }
 
-    public static String getInvalidYearIfFieldZeros() {                                  //получите недопустимый год, если в поле есть нули
+    public static String getInvalidYearIfFieldZeros() {
 
         return "00";
     }
-
 
 
     //  Владелец
@@ -119,45 +115,44 @@ public class DataGenerator {                                                    
         return faker.name().firstName();                                              //возвращает созданное случайное имя на латинице
     }
 
-    public static String getEmptyOwnerField() {                                      //получить пустое поле владельца
+    public static String getEmptyOwnerField() {
 
         return "";
     }
 
-    public static String getInvalidOwnerFieldWithOneLetter() {                        //Недопустимое поле владельца с одной буквой
+    public static String getInvalidOwnerFieldWithOneLetter() {
 
         return "F";
     }
 
-    public static String getInvalidOwnerFieldWithLowerCase() {                        //Недопустимое поле владельца со строчными буквами
+    public static String getInvalidOwnerFieldWithLowerCase() {
 
         return "petr petrov";
     }
 
-    public static String getInvalidOwnerFieldWithUpperCase() {                        //Недопустимое поле владельца с заглавными буквами
+    public static String getInvalidOwnerFieldWithUpperCase() {
 
         return "PETR PETROV";
     }
 
-    public static String getInvalidOwnerFieldWithThreeWords() {                       //Недопустимое поле владельца с тремя словами на латинице
+    public static String getInvalidOwnerFieldWithThreeWords() {
 
         return "Petr Petrovich Petrov";
     }
 
-    public static String getInvalidOwnerFieldWithLotsNumberOfLetters() {             //Недопустимое Поле Владельца с Большим Количеством Букв
+    public static String getInvalidOwnerFieldWithLotsNumberOfLetters() {
         return "FFFFFFFFFFFFFFFFAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR";
     }
 
-    public static String getInvalidOwnerFieldWithDigits() {                          //Недопустимое поле владельца с цифрами
+    public static String getInvalidOwnerFieldWithDigits() {
 
         return "" + "0123";
     }
 
-    public static String getInvalidOwnerFieldWithSymbols() {                         //Недопустимое поле владельца с символами
+    public static String getInvalidOwnerFieldWithSymbols() {
 
         return "$&@%%&#@";
     }
-
 
 
     //  CVC
@@ -167,22 +162,22 @@ public class DataGenerator {                                                    
         return faker.numerify("###");                                  // возвращает случайный набор чисел
     }
 
-    public static String getEmptyFieldCVC() {                                     //получить пустое поле CVC
+    public static String getEmptyFieldCVC() {
 
         return "";
     }
 
-    public static String getIncorrectCVCWithOneDigit() {                          //получите неверный CVC с одной цифрой
+    public static String getIncorrectCVCWithOneDigit() {
 
         return "1";
     }
 
-    public static String getIncorrectCVCWithTwoDigits() {                          //получите неверный CVC с двумя цифрами
+    public static String getIncorrectCVCWithTwoDigits() {
 
         return "12";
     }
 
-    public static String getInvalidCVC() {                                         //получить недопустимый CVC
+    public static String getInvalidCVC() {
 
         return "000";
     }

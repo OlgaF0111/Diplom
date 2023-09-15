@@ -1,37 +1,38 @@
 package ru.netology.test;
 
+
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import lombok.val;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
 import ru.netology.page.MainPage;
-import ru.netology.sql.SqlHelper;
+import ru.netology.db.SqlHelper;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DebitCardPaymentTest {                                                 //Проверка оплаты дебетовой картой
 
-    MainPage mainPage;                                                              //Главная страница
+    private MainPage mainPage;                                                              //Главная страница
 
     @BeforeAll                                                                      //аннотированный метод д/б выполнен перед всеми @Test
-    public static void setUpAll() {                                                 //метод создания подключения к .... ??? по моему д/б throws SQLException
+    public static void setUpAll() {                                                 //метод создания подключения к отчету по моему д/б throws SQLException
         SelenideLogger.addListener("allure", new AllureSelenide());           //Логирует шаги теста Selenide и уведомляет об этом.Добавить слушателя в текущий поток с имененм аллур (создание отчета)
     }
+
     @AfterAll                                                                      //аннотированный метод д/б выполнен после всех тестов в текущем тестовом классе
     public static void tearDownAll() {                                             //метод удаления функции после теста
         SelenideLogger.removeListener("allure");                             //Логирует шаги теста Selenide и уведомляет об этом.удаление слушателя с имененм аллур
-        SqlHelper.cleanDb();                                                       //класс для работы с базой данных.очистить базу данных()
+        SqlHelper.cleanDb();                                                       //очистить базу данных()
     }
-    @BeforeEach                                                                   //отвечает за настройку подключения и сохранения предварительных данных в базу
+
+    @BeforeEach                                                                   //отвечает за настройку подключения
     public void setUp() {                                                         //метод выполнения функции до теста
-        mainPage = open(System.getProperty("sut.url"), MainPage.class);           //Главная страница=открыть(метод получения конкретного системного свойства(адрес тетсируемой системы). класс главной страницы)
+        mainPage = open("http://localhost:8080", MainPage.class); //Главная страница=открыть(адрес тетсируемой системы. класс главной страницы)
     }
-//нет кода для подключения к БД, получения статуса запроса от БД
+
+
 
                                                              //ПОЗИТИВНЫЕ СЦЕНАРИИ
 
@@ -41,8 +42,8 @@ public class DebitCardPaymentTest {                                             
         val info = DataHelper.getValidApprovedCardData();                              //инфо=Помощник по обработке данных.Получить валидные данные карты
         paymentPage.fillPaymentFormat(info);                                           //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                        //страница оплаты.Проверка успешного уведомления
-        val paymentStatus = SqlHelper.getStatusPaymentEntity();                        //статус платежа=класс для работы с базой данных.Получить статус платежного объекта
-        assertEquals("APPROVED", paymentStatus);                               //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusPaymentEntity());
+
     }
     @Test
     public void attemptPayDebitCardWithIntroductionNextMonth() {                       //оплата дебетовой картой с введением следующего месяца за текущим.
@@ -50,27 +51,27 @@ public class DebitCardPaymentTest {                                             
         val info = DataHelper.getTheNextMonthAfterCurrentOne();                        //инфо=класс генератор.Получить следующий месяц следующий за текущим
         paymentPage.fillPaymentFormat(info);                                           //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                        //страница оплаты.Проверка успешного уведомления
-        val paymentStatus = SqlHelper.getStatusPaymentEntity();                        //статус платежа=класс для работы с базой данных.Получить статус платежного объекта
-        assertEquals("APPROVED", paymentStatus);                               //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusPaymentEntity());                               //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
     }
+
     @Test
     public void anAttemptToPayWithDebitCardWithTheIntroductionOfNextYear() {            //оплата дебетовой картой с введением  года следующего за текущим
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getTheCardNextYear();                                     //инфо=класс генератор.Получить карту с указанием следующего за текущим годом
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                         //страница оплаты.Проверка успешного уведомления
-        val paymentStatus = SqlHelper.getStatusPaymentEntity();                         //статус платежа=класс для работы с базой данных.Получить статус платежного объекта
-        assertEquals("APPROVED", paymentStatus);                                //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusPaymentEntity());                                //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
     }
+
     @Test
     public void anAttemptPayWithDebitCardWithIntroductionOwnerCapitalLetters() {        //оплата дебетовой картой с введением Владелица заглавными буквами
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
-        val info = DataHelper.getInvalidOwnerWithUpperCase();                           //инфо=класс генератор.Получить владельца заглавными буквами на латинице
+        val info = DataHelper.getOwnerWithUpperCase();                           //инфо=класс генератор.Получить владельца заглавными буквами на латинице
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                         //страница оплаты.Проверка успешного уведомления
-        val paymentStatus = SqlHelper.getStatusPaymentEntity();                         //статус платежа=класс для работы с базой данных.Получить статус платежного объекта
-        assertEquals("APPROVED", paymentStatus);                                //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusPaymentEntity());                                //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
     }
+
 
 
 
@@ -85,9 +86,9 @@ public class DebitCardPaymentTest {                                             
         val info = DataHelper.getValidDeclinedCardData();                           //инфо=Помощник по обработке данных.Получить действительные данные отклоненной карты
         paymentPage.fillPaymentFormat(info);                                        //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkErrorNotification();                                       //страница оплаты.Проверка уведомления об ошибке
-        val paymentStatus = SqlHelper.getStatusPaymentEntity();                     //статус платежа=класс для работы с базой данных.Получить статус платежного объекта
-        assertEquals("DECLINED", paymentStatus);                            //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
+        assertEquals("DECLINED", SqlHelper.getStatusPaymentEntity());                            //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
     }
+
     @Test
     public void anAttemptToPayWithDebitCardWithAnEmptyCardNumberField() {            //Попытка Оплаты Дебетовой Картой С Пустым Полем Номера Карты
         val paymentPage = mainPage.getDebitCardPayment();                            //страница оплаты=Главная страница.Получить оплату дебетовой картой
@@ -115,18 +116,18 @@ public class DebitCardPaymentTest {                                             
         val info = DataHelper.getInvalidCardNumberIfFieldAllZeros();                 //инфо=класс генератор.Получить неверный номер карты, если введете все нули
         paymentPage.fillPaymentFormat(info);                                         //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkErrorNotification();                                        //страница оплаты.Проверка уведомления об ошибке
-        val paymentStatus = SqlHelper.getStatusPaymentEntity();                      //статус платежа=класс для работы с базой данных.Получить статус платежного объекта
-        assertEquals("DECLINED", paymentStatus);                             //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
+        assertEquals("DECLINED", SqlHelper.getStatusPaymentEntity());                             //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
     }
+
     @Test
     public void anAttemptToPayWithDebitCardWithAnInvalidCardNumber() {                //Попытка Оплаты Дебетовой Картой С Неверным Номером Карты
         val paymentPage = mainPage.getDebitCardPayment();                             //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getAnotherBankCardNumber();                             //инфо=класс генератор.Получить другой номер банковской карты
         paymentPage.fillPaymentFormat(info);                                          //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkErrorNotification();                                         //страница оплаты.Проверка уведомления об ошибке
-        val paymentStatus = SqlHelper.getStatusPaymentEntity();                       //статус платежа=класс для работы с базой данных.Получить статус платежного объекта
-        assertEquals("DECLINED", paymentStatus);                              //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
+        assertEquals("DECLINED", SqlHelper.getStatusPaymentEntity());                              //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
     }
+
 
 
 
@@ -166,7 +167,7 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                             //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getInvalidMonthIsCurrentYear();                         //инфо=класс генератор.Получить предыдущий месяц
         paymentPage.fillPaymentFormat(info);                                          //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.verifyCardExpired();                                              //страница оплаты.Проверка что срок действия карты истек
+        paymentPage.checkInvalidCardExpirationDate();                                              //страница оплаты.Проверка что срок действия карты истек
     }
 
 
@@ -193,7 +194,7 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getInvalidYearWithZeros();                                //инфо=класс генератор.Получить недопустимый год с нулями
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                   //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.verifyCardExpired();                                   //страница оплаты.Проверка срока действия недействительной карты
     }
     @Test
     public void debitCardPaymentExperienceWithIntroductionExpiredYearOfCardIssuance() { //попытка оплаты дебетовой картой с введением истекшего года выдачи карты
@@ -207,7 +208,7 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getCardWithExpiredYear();                                 //инфо=класс генератор.Получить недействительный год, текущий год -1
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                   //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.verifyCardExpired();                                                //страница оплаты.Проверка срока действия недействительной карты
     }
 
 

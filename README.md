@@ -15,7 +15,7 @@
 ## Установка и запуск  
 ### *Инструкция по запуску с поддержкой MySQL*  
 ***
-склонировать репозиторий с помощью команды:  git clone https://github.com/OlgaF0111/Diplom  
+Склонировать репозиторий с помощью команды:  git clone https://github.com/OlgaF0111/Diplom  
 Открыть склонированный проект в Intellij IDEA  
 Запустить docker-контейнер командой: docker-compose up --build  
 Запустить SUT с поддержкой MySQL в новом терминале, командой:   java "-Dspring.datasource.url=jdbc:mysql://localhost:3306/app" -jar artifacts/aqa-shop.jar  
@@ -23,7 +23,7 @@
 
 ### *Инструкция по запуску с поддержкой PostgreSQL*  
 ***
-склонировать репозиторий с помощью команды:  git clone https://github.com/OlgaF0111/Diplom  
+Склонировать репозиторий с помощью команды:  git clone https://github.com/OlgaF0111/Diplom  
 Открыть склонированный проект в Intellij IDEA  
 Запустить docker-контейнер командой: docker-compose up --build  
 Запустить SUT с поддержкой PostgreSQL в новом терминале, командой:   java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar  

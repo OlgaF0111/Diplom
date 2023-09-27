@@ -41,7 +41,7 @@ IntelliJ IDEA Community Edition,  Github, Docker Desktop - бесплатный 
 
 ## Документация  
 [план автоматизации тестирования](https://github.com/OlgaF0111/Diplom/blob/main/documentation/plan.md)    
-тест-кейсы    
+[тест-кейсы](https://github.com/OlgaF0111/Diplom/blob/main/documentation/test%20case.md)    
 [отчет о проведенном тестировании](https://github.com/OlgaF0111/Diplom/blob/main/documentation/Report.md)   
 [отчет о проведенной автоматизации](https://github.com/OlgaF0111/Diplom/blob/main/documentation/Summary.md)     
 

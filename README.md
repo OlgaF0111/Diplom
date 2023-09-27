@@ -13,14 +13,16 @@
 4.	Установить Google Chrome
 
 ## Установка и запуск  
-*Инструкция по запуску с поддержкой MySQL*    
+### *Инструкция по запуску с поддержкой MySQL*  
+***
 склонировать репозиторий с помощью команды:  git clone https://github.com/OlgaF0111/Diplom  
 Открыть склонированный проект в Intellij IDEA  
 Запустить docker-контейнер командой: docker-compose up --build  
 Запустить SUT с поддержкой MySQL в новом терминале, командой:   java "-Dspring.datasource.url=jdbc:mysql://localhost:3306/app" -jar artifacts/aqa-shop.jar  
 Запустить тесты с MySQL в новом терминале, командой: ./gradlew clean test "-Ddb.url=jdbc:mysql://localhost:3306/app"  
 
-*Инструкция по запуску с поддержкой PostgreSQL*  
+### *Инструкция по запуску с поддержкой PostgreSQL*  
+***
 склонировать репозиторий с помощью команды:  git clone https://github.com/OlgaF0111/Diplom  
 Открыть склонированный проект в Intellij IDEA  
 Запустить docker-контейнер командой: docker-compose up --build  
@@ -29,7 +31,8 @@
 
 Отчет Allure формируется автоматически после прохождения авто-тестов и открывается в браузере кликом по allureServe в папке verification.  
 
-*Остановка и удаление контейнеров.*  
+### *Остановка и удаление контейнеров.*  
+***
 Остановить работу SUT сочетанием клавиш: Ctrl + C   
 Для остановки и удаление docker-контейнера:  
 docker-compose stop  - остановка контейнера  

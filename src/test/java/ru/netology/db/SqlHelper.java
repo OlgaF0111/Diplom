@@ -23,7 +23,7 @@ public class SqlHelper {                                                        
         return null;                                                                              //выход при отсутсвии значения (если условие не сработало)
     }
 
-    @SneakyThrows                                                                                // аннотация из Lombok, генерирует обертки для проверяемых исключений
+
     public static void cleanDb() {                                                                //метод очистки базы данных
         val creditRequest = "DELETE FROM credit_request_entity";                                  //запрос на получение кредита=УДАЛИТЬ ИЗ таблицы объекта запроса на получение кредита
         val order = "DELETE FROM order_entity";                                                   //приказ=УДАЛИТЬ ИЗ таблицы объект заказа
@@ -40,7 +40,7 @@ public class SqlHelper {                                                        
         }
     }
 
-    @SneakyThrows                                                                                 //Аннотация от Lombok для обработки проверенных исключений
+
     public static String getStatusCreditRequestEntity() {                                         //метод получения ID кредитного запроса
         try (val conn = getConnection();                                                          //определяет блок кода, в котором может произойти исключение //заготовка запроса для аккаунта
              val countStmt = conn.createStatement()) {                                            //Создание Statement для отправки инструкций SQL в базу данных //создает объект оператора JDBC
@@ -57,7 +57,7 @@ public class SqlHelper {                                                        
     }
 
 
-    @SneakyThrows
+
     public static String getStatusPaymentEntity() {                                              //метод получения статуса платежного идентификатора (для дебетовой карты)
         try (val conn = getConnection();                                                         //определяет блок кода, c исключением
              val countStmt = conn.createStatement()) {                                           //определяет блок кода, в котором может произойти исключение //заготовка запроса для аккаунта

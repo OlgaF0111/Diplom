@@ -39,27 +39,27 @@ public class PaymentPage {                                                      
     }
 
     public  void checkSuccessNotification() {                                      //проверьте уведомление об успешном завершении
-        successNotification.shouldBe(Condition.visible, Duration.ofSeconds(20));  //уведомление об успешном завершении.сообщение видимое пользователю(проверяет условие, виден ли элемент, в течении 15 сек.)
+        successNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));    //уведомление об успешном завершении.сообщение видимое пользователю(проверяет условие, виден ли элемент, в течении 15 сек.)
 
     }
 
     public void checkErrorNotification() {                                         //проверьте уведомление об ошибке
-        errorNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));     //уведомление об ошибке.соощение видимое пользователю(проверяет условие, виден ли элемент, в течении 15 сек.)
+        errorNotification.shouldBe(Condition.visible, Duration.ofSeconds(15));      //уведомление об ошибке.соощение видимое пользователю(проверяет условие, виден ли элемент, в течении 15 сек.)
     }
 
     public void checkWrongFormat() {                                               //проверьте неправильный формат
-        wrongFormat.shouldBe(Condition.visible, Duration.ofSeconds(15));                                   //неправильный формат.соощение видимое пользователю(проверяет условие, виден ли элемент)
+        wrongFormat.shouldBe(Condition.visible);                                   //неправильный формат.соощение видимое пользователю(проверяет условие, виден ли элемент)
     }
 
-    public void checkInvalidCardExpirationDate() {                                //проверьте срок действия недействительной карты
-        invalidCardExpirationDate.shouldBe(Condition.visible, Duration.ofSeconds(15));                    //недействительный срок действия карты.соощение видимое пользователю(проверяет условие, виден ли элемент)
+    public void checkInvalidCardExpirationDate() {                                //проверьте срок действия карты
+        invalidCardExpirationDate.shouldBe(Condition.visible);                    //неверно указан срок действия карты.соощение видимое пользователю(проверяет условие, виден ли элемент)
     }
 
-    public void verifyCardExpired() {                                             //срок действия подтверждающей карты истек
-        cardExpired.shouldBe(Condition.visible, Duration.ofSeconds(15));                                  //срок действия карты истек.соощение успеха видимое пользователю(проверяет условие, виден ли элемент)
+    public void verifyCardExpired() {                                             //срок действия карты истек
+        cardExpired.shouldBe(Condition.visible);                                  //срок действия карты истек.соощение успеха видимое пользователю(проверяет условие, виден ли элемент)
     }
 
     public void verifyEmptyField() {                                             //проверьте пустое поле
-        emptyField.shouldBe(Condition.visible, Duration.ofSeconds(15));                                  //пустое поле.соощение успеха видимое пользователю(проверяет условие, виден ли элемент)
+        emptyField.shouldBe(Condition.visible);                                  //поле обязательно для заполнения.соощение успеха видимое пользователю(проверяет условие, виден ли элемент)
     }
 }

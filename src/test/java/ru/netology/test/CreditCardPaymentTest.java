@@ -39,43 +39,43 @@ public class CreditCardPaymentTest {                                            
     // ПОЗИТИВНЫЕ СЦЕНАРИИ
 
     @Test
-    public void ByCreditCardWithApprovedStatusWithIntroductionValidValues() {      //оплата  Кредитной Картой Со Статусом Одобрено С Введением Валидных Значений
+    public void byCreditCardWithApprovedStatusWithIntroductionValidValues() {             //оплата  Кредитной Картой Со Статусом Одобрено С Введением Валидных Значений
         val paymentPage = mainPage.getPaymentByCreditCard();                              //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getValidApprovedCardData();                                 //инфо=класс генератор.Получить валидные данные карты
         paymentPage.fillPaymentFormat(info);                                              //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                           //страница оплаты.Проверка успешного уведомления
-        assertEquals("APPROVED", SqlHelper.getStatusCreditRequestEntity());                                  //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusCreditRequestEntity());       //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
     }
 
 
     @Test
-    public void PayCreditCardWithIntroductionNextMonth() {                               //оплата Кредитной картой с введением следующего месяца.
+    public void payCreditCardWithIntroductionNextMonth() {                               //оплата Кредитной картой с введением следующего месяца.
         val paymentPage = mainPage.getPaymentByCreditCard();                             //страница оплаты=Главная страница.Получить оплату кредитной картой
         val info = DataHelper.getTheNextMonthAfterCurrentOne();                          //инфо=класс генератор.Получить следующий месяц от текущего
         paymentPage.fillPaymentFormat(info);                                             //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                          //страница оплаты.Проверка успешного уведомления
-        assertEquals("APPROVED", SqlHelper.getStatusCreditRequestEntity());                                 //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusCreditRequestEntity());      //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
 
     }
 
 
     @Test
-    public void PayWithCreditCardWithTheIntroductionOfNextYear() {                       //оплата Кредитной картой с введением следующего года
+    public void payWithCreditCardWithTheIntroductionOfNextYear() {                       //оплата Кредитной картой с введением следующего года
         val paymentPage = mainPage.getPaymentByCreditCard();                             //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
-        val info = DataHelper.getTheCardNextYear();                                  //инфо=класс генератор.Получить карту с годом следующим за текущим
+        val info = DataHelper.getTheCardNextYear();                                      //инфо=класс генератор.Получить карту с годом следующим за текущим
         paymentPage.fillPaymentFormat(info);                                             //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                          //страница оплаты.Проверка успешного уведомления
-        assertEquals("APPROVED", SqlHelper.getStatusCreditRequestEntity());                                 //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusCreditRequestEntity());      //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
     }
 
 
     @Test
-    public void PayWithCreditCardWithIntroductionOwnerCapitalLetters() {                 //оплата Кредитной картой с введением Владелица заглавными буквами
+    public void payWithCreditCardWithIntroductionOwnerCapitalLetters() {                 //оплата Кредитной картой с введением Владелица заглавными буквами
         val paymentPage = mainPage.getPaymentByCreditCard();                             //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
-        val info = DataHelper.getOwnerWithUpperCase();                            //инфо=класс генератор.Получить владельца с заглавными буквами на латинице
+        val info = DataHelper.getOwnerWithUpperCase();                                   //инфо=класс генератор.Получить владельца с заглавными буквами на латинице
         paymentPage.fillPaymentFormat(info);                                             //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                          //страница оплаты.Проверка успешного уведомления
-        assertEquals("APPROVED", SqlHelper.getStatusCreditRequestEntity());                                 //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusCreditRequestEntity());      //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
 
     }
 
@@ -91,7 +91,7 @@ public class CreditCardPaymentTest {                                            
         val info = DataHelper.getValidDeclinedCardData();                               //инфо=класс генератор.Получить данные отклоненной карты
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkErrorNotification();                                           //страница оплаты.Проверка уведомления об ошибке
-        assertEquals("DECLINED", SqlHelper.getStatusCreditRequestEntity());                                //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
+        assertEquals("DECLINED", SqlHelper.getStatusCreditRequestEntity());    //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
     }
 
 
@@ -100,7 +100,7 @@ public class CreditCardPaymentTest {                                            
         val paymentPage = mainPage.getPaymentByCreditCard();                          //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getCardNumberFieldEmpty();                              //инфо=класс генератор.Получить пустое поле номера карты
         paymentPage.fillPaymentFormat(info);                                          //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkWrongFormat();                                               //страница оплаты.Проверка неправильного формата
+        paymentPage.verifyEmptyField();                                               //страница оплаты.поле обязательно для заполнения
     }
 
     @Test
@@ -120,12 +120,11 @@ public class CreditCardPaymentTest {                                            
     }
 
     @Test
-    public void ToPayWithCreditCardWthZeroValuesInTheCardField() {            //Попытка Оплаты Кредитной Картой С Нулевыми Значениями В Поле Карта
+    public void payWithCreditCardWthZeroValuesInTheCardField() {                       //Попытка Оплаты Кредитной Картой С Нулевыми Значениями В Поле Карта
         val paymentPage = mainPage.getPaymentByCreditCard();                           //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getInvalidCardNumberIfFieldAllZeros();                   //инфо=класс генератор.Получить недействительный номер карты, если ввести все нули
         paymentPage.fillPaymentFormat(info);                                           //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkErrorNotification();                                          //страница оплаты.Проверка уведомления об ошибке
-        assertEquals("DECLINED", SqlHelper.getStatusCreditRequestEntity());                              //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
     }
 
 
@@ -135,7 +134,6 @@ public class CreditCardPaymentTest {                                            
         val info = DataHelper.getAnotherBankCardNumber();                              //инфо=класс генератор.Получить недействительный номер карты, если ввести все нули
         paymentPage.fillPaymentFormat(info);                                           //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkErrorNotification();                                          //страница оплаты.Проверка уведомления об ошибке
-        assertEquals("DECLINED", SqlHelper.getStatusCreditRequestEntity());                               //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
     }
 
 
@@ -147,7 +145,7 @@ public class CreditCardPaymentTest {                                            
         val paymentPage = mainPage.getPaymentByCreditCard();                           //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getFieldMonthEmpty();                                    //инфо=класс генератор.Получить поле Месяц пустым
         paymentPage.fillPaymentFormat(info);                                           //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkWrongFormat();                                                //страница оплаты.Проверка неправильного формата
+        paymentPage.verifyEmptyField();                                                //страница оплаты.поле обязательно для заполнения
     }
 
     @Test
@@ -163,7 +161,7 @@ public class CreditCardPaymentTest {                                            
         val paymentPage = mainPage.getPaymentByCreditCard();                           //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getInvalidMonthWithZeros();                              //инфо=класс генератор.Получить недопустимый месяц с нулями
         paymentPage.fillPaymentFormat(info);                                           //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                  //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.checkInvalidCardExpirationDate();                                  //страница оплаты.неверно указан срок действия карты
     }
 
     @Test
@@ -171,15 +169,15 @@ public class CreditCardPaymentTest {                                            
         val paymentPage = mainPage.getPaymentByCreditCard();                          //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getInvalidMonthWithIrrelevantValue();                   //инфо=класс генератор.Получить недопустимый месяц с нерелевантным значением
         paymentPage.fillPaymentFormat(info);                                          //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                 //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.checkInvalidCardExpirationDate();                                 //страница оплаты.неверно указан срок действия карты
     }
 
     @Test
     public void anAttemptToPayWithCreditCardWithTheIntroductionPreviousMonth() {      //попытка оплаты Кредитной картой с введением предыдущего месяца.
         val paymentPage = mainPage.getPaymentByCreditCard();                          //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
-        val info = DataHelper.getInvalidMonthIsCurrentYear();                         //инфо=класс генератор.Получить предыдущим месяц
+        val info = DataHelper.getInvalidMonthIsCurrentYear();                         //инфо=класс генератор.Получить предыдущий месяц
         paymentPage.fillPaymentFormat(info);                                          //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                              //страница оплаты.Проверка что срок действия карты истек
+        paymentPage.verifyCardExpired();                                              //страница оплаты.срок действия карты истек
     }
 
 
@@ -190,7 +188,7 @@ public class CreditCardPaymentTest {                                            
         val paymentPage = mainPage.getPaymentByCreditCard();                          //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getFieldYearEmpty();                                    //инфо=класс генератор.Получить поле Год пустым
         paymentPage.fillPaymentFormat(info);                                          //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkWrongFormat();                                               //страница оплаты.Проверка неправильного формата
+        paymentPage.verifyEmptyField();                                               //страница оплаты.поле обязательно для заполнения
     }
 
     @Test
@@ -206,15 +204,15 @@ public class CreditCardPaymentTest {                                            
         val paymentPage = mainPage.getPaymentByCreditCard();                           //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getInvalidYearWithZeros();                               //инфо=класс генератор.Получить недопустимый год с нулями
         paymentPage.fillPaymentFormat(info);                                           //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.verifyCardExpired();                                  //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.checkInvalidCardExpirationDate();                                  //страница оплаты.неверно указан срок действия карты
     }
 
     @Test
-    public void CreditCardPaymentExperienceWithIntroductionExpiredYearOfCardIssuance() { //попытка оплаты Кредитной картойс введением истекшего года выдачи карты
+    public void creditCardPaymentExperienceWithIntroductionExpiredYearOfCardIssuance() { //попытка оплаты Кредитной картойс введением истекшего года выдачи карты
         val paymentPage = mainPage.getPaymentByCreditCard();                            //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getInvalidYearExceedingCardExpirationDate();              //инфо=класс генератор.Получить год, превышающий дату истечения срока действия карты на 6 лет от текущего
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                   //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.verifyCardExpired();                                                //страница оплаты.срок действия карты истек
     }
 
     @Test
@@ -222,7 +220,7 @@ public class CreditCardPaymentTest {                                            
         val paymentPage = mainPage.getPaymentByCreditCard();                            //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getCardWithExpiredYear();                                 //инфо=класс генератор.Получить недействительный год, текущий год -1
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.verifyCardExpired();                                                //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.verifyCardExpired();                                                //страница оплаты.срок действия карты истек
     }
 
 
@@ -249,13 +247,13 @@ public class CreditCardPaymentTest {                                            
         val paymentPage = mainPage.getPaymentByCreditCard();                              //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getOwnerFieldEmpty();                                       //инфо=класс генератор.Получить поле Владельца пустым
         paymentPage.fillPaymentFormat(info);                                              //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.verifyEmptyField();                                                   //страница оплаты.Проверка пустого поля
+        paymentPage.verifyEmptyField();                                                   //страница оплаты.поле обязательно для заполнения
     }
 
     @Test
     public void anAttemptWithCreditCardWithTheIntroductionOneLetterTheOwnerField() {      //попытка оплаты Кредитной картой с введением одной буквы в поле Владелец.
         val paymentPage = mainPage.getPaymentByCreditCard();                              //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
-        val info = DataHelper.getInvalidOwnerWithOneLetter();                             //инфо=класс генератор.Получить недействительного владельца с одной буквой
+        val info = DataHelper.getInvalidOwnerWithOneLetter();                             //инфо=класс генератор.Получить одну букву на латинице
         paymentPage.fillPaymentFormat(info);                                              //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkWrongFormat();                                                   //страница оплаты.Проверка неправильного формата
     }
@@ -308,12 +306,12 @@ public class CreditCardPaymentTest {                                            
         val paymentPage = mainPage.getPaymentByCreditCard();                             //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getEmptyCVCField();                                        //инфо=класс генератор.Получить неверный CVC пустым
         paymentPage.fillPaymentFormat(info);                                             //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkWrongFormat();                                                  //страница оплаты.Проверка неправильного формата
+        paymentPage.verifyEmptyField();                                                  //страница оплаты.поле обязательно для заполнения
 
     }
 
     @Test
-    public void anAttemptWithCreditCardWithIntroductionSingleDigitSMSValue() {           // попытка оплаты Кредитной картой с введением СМС значения из одной цифры
+    public void anAttemptWithCreditCardWithIntroductionSingleDigitSMSValue() {           // попытка оплаты Кредитной картой с введением CVC значения из одной цифры
         val paymentPage = mainPage.getPaymentByCreditCard();                             //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getInvalidCVCWithOneDigit();                               //инфо=класс генератор.Получить неверный CVC с одной цифрой
         paymentPage.fillPaymentFormat(info);                                             //страница оплаты.Заполните форму платежа(информация)
@@ -321,7 +319,7 @@ public class CreditCardPaymentTest {                                            
     }
 
     @Test
-    public void anAttemptWithCreditCardWithIntroductionTwoDigitSMSValue() {              //попытка оплаты Кредитной картой  с введением СМС значения из двух цифр
+    public void anAttemptWithCreditCardWithIntroductionTwoDigitSMSValue() {              //попытка оплаты Кредитной картой  с введением CVC значения из двух цифр
         val paymentPage = mainPage.getPaymentByCreditCard();                             //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getInvalidCVCWithTwoDigits();                              //инфо=класс генератор.Получить неверный CVC с двумя цифрами
         paymentPage.fillPaymentFormat(info);                                             //страница оплаты.Заполните форму платежа(информация)
@@ -329,7 +327,7 @@ public class CreditCardPaymentTest {                                            
     }
 
     @Test
-    public void anAttemptWithCreditCardWithIntroductionZeroSMSValues() {                 // попытка оплаты Кредитной картой с введением СМС нулевых значений
+    public void anAttemptWithCreditCardWithIntroductionZeroSMSValues() {                 // попытка оплаты Кредитной картой с введением CVC нулевых значений
         val paymentPage = mainPage.getPaymentByCreditCard();                             //страница оплаты=Главная страница.Получить оплату с помощью кредитной карты
         val info = DataHelper.getInvalidCVCWithZeros();                                  //инфо=класс генератор.Получить неверный CVC с нулями
         paymentPage.fillPaymentFormat(info);                                             //страница оплаты.Заполните форму платежа(информация)

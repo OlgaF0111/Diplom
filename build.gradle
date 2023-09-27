@@ -12,7 +12,7 @@ compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
 repositories {
-   mavenCentral()                                                           // Подключена автоматическая работа с Maven Central
+   mavenCentral()
 }
 
 dependencies {                                                              //внешние зависимости проекта
@@ -21,8 +21,8 @@ dependencies {                                                              //в
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'com.codeborne:selenide:6.17.1'
-    testImplementation 'mysql:mysql-connector-java:8.0.25'                  //Драйвер MySQL JDBC
-    testImplementation 'org.postgresql:postgresql:9.3-1102-jdbc41'          //это драйвер Java для базы данных PostgreSQL.
+    testImplementation 'mysql:mysql-connector-java:8.0.25'
+    testImplementation 'org.postgresql:postgresql:42.6.0'
     testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
 
 }

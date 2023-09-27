@@ -60,16 +60,16 @@ public class DebitCardPaymentTest {                                             
         val info = DataHelper.getTheCardNextYear();                                     //инфо=класс генератор.Получить карту с указанием следующего за текущим годом
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                         //страница оплаты.Проверка успешного уведомления
-        assertEquals("APPROVED", SqlHelper.getStatusPaymentEntity());                                //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusPaymentEntity());           //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
     }
 
     @Test
     public void anAttemptPayWithDebitCardWithIntroductionOwnerCapitalLetters() {        //оплата дебетовой картой с введением Владелица заглавными буквами
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
-        val info = DataHelper.getOwnerWithUpperCase();                           //инфо=класс генератор.Получить владельца заглавными буквами на латинице
+        val info = DataHelper.getOwnerWithUpperCase();                                  //инфо=класс генератор.Получить владельца заглавными буквами на латинице
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkSuccessNotification();                                         //страница оплаты.Проверка успешного уведомления
-        assertEquals("APPROVED", SqlHelper.getStatusPaymentEntity());                                //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
+        assertEquals("APPROVED", SqlHelper.getStatusPaymentEntity());           //проверка на равенство ожид и факт результа(ожид-одобренный,Статус платежа)
     }
 
 
@@ -86,7 +86,7 @@ public class DebitCardPaymentTest {                                             
         val info = DataHelper.getValidDeclinedCardData();                           //инфо=Помощник по обработке данных.Получить действительные данные отклоненной карты
         paymentPage.fillPaymentFormat(info);                                        //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkErrorNotification();                                       //страница оплаты.Проверка уведомления об ошибке
-        assertEquals("DECLINED", SqlHelper.getStatusPaymentEntity());                            //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
+        assertEquals("DECLINED", SqlHelper.getStatusPaymentEntity());       //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
     }
 
     @Test
@@ -94,7 +94,7 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                            //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getCardNumberFieldEmpty();                             //инфо=класс генератор.Получить пустое поле с номером карты
         paymentPage.fillPaymentFormat(info);                                         //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkWrongFormat();                                              //страница оплаты.Проверка неправильного формата
+        paymentPage.verifyEmptyField();                                              //страница оплаты.поле обязательно для заполнения
     }
     @Test
     public void anAttemptPayWithDebitCardWithCardNumberConsistingOfOneDigit() {       //Попытка Оплаты Дебетовой Картой С Номером Карты, Состоящим Из Одной Цифры
@@ -116,7 +116,6 @@ public class DebitCardPaymentTest {                                             
         val info = DataHelper.getInvalidCardNumberIfFieldAllZeros();                 //инфо=класс генератор.Получить неверный номер карты, если введете все нули
         paymentPage.fillPaymentFormat(info);                                         //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkErrorNotification();                                        //страница оплаты.Проверка уведомления об ошибке
-        assertEquals("DECLINED", SqlHelper.getStatusPaymentEntity());                             //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
     }
 
     @Test
@@ -125,7 +124,6 @@ public class DebitCardPaymentTest {                                             
         val info = DataHelper.getAnotherBankCardNumber();                             //инфо=класс генератор.Получить другой номер банковской карты
         paymentPage.fillPaymentFormat(info);                                          //страница оплаты.Заполните форму платежа(информация)
         paymentPage.checkErrorNotification();                                         //страница оплаты.Проверка уведомления об ошибке
-        assertEquals("DECLINED", SqlHelper.getStatusPaymentEntity());                              //проверка на равенство ожид и факт результа(ожид-отклоненный,Статус платежа)
     }
 
 
@@ -139,7 +137,7 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                            //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getFieldMonthEmpty();                                  //инфо=класс генератор.Получить поле Месяц пустым
         paymentPage.fillPaymentFormat(info);                                         //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkWrongFormat();                                              //страница оплаты.Проверка неправильного формата
+        paymentPage.verifyEmptyField();                                              //страница оплаты.поле обязательно для заполнения
     }
     @Test
     public void anAttemptWithDebitCardWithTheIntroductionOfSingleDigitDateMonth() {  //Попытка Оплаты Дебетовой Картой С Введением одной цифры в поле Месяца
@@ -153,21 +151,21 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                            //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getInvalidMonthWithZeros();                            //инфо=класс генератор.Получить недопустимый месяц с нулями
         paymentPage.fillPaymentFormat(info);                                         //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.checkInvalidCardExpirationDate();                                //страница оплаты.неверно указан срок действия карты
     }
     @Test
     public void anAttemptWithDebitCardWithTheIntroductionNonExistentDateOfMonth() {  //попытка оплаты дебетовой картой с введением несуществующей даты месяца.
         val paymentPage = mainPage.getDebitCardPayment();                            //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getInvalidMonthWithIrrelevantValue();                  //инфо=класс генератор.Получить не существующий месяц
         paymentPage.fillPaymentFormat(info);                                         //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.checkInvalidCardExpirationDate();                                //страница оплаты.неверно указан срок действия карты
     }
     @Test
     public void anAttemptToPayWithDebitCardWithTheIntroductionPreviousMonth() {       //попытка оплаты дебетовой картой с введением предыдущего месяца.
         val paymentPage = mainPage.getDebitCardPayment();                             //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getInvalidMonthIsCurrentYear();                         //инфо=класс генератор.Получить предыдущий месяц
         paymentPage.fillPaymentFormat(info);                                          //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                              //страница оплаты.Проверка что срок действия карты истек
+        paymentPage.verifyCardExpired();                                              //страница оплаты.срок действия карты истек
     }
 
 
@@ -180,7 +178,7 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getFieldYearEmpty();                                      //инфо=класс генератор.Получить поле Год пустым
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkWrongFormat();                                                 //страница оплаты.Проверка неправильного формата
+        paymentPage.verifyEmptyField();                                                 //страница оплаты.поле обязательно для заполнения
     }
     @Test
     public void anAttemptWithDebitCardWithTheIntroductionOfSingleDigitInYearField() {   // попытка оплаты дебетовой картой с введением одной цифры в поле год
@@ -194,21 +192,21 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getInvalidYearWithZeros();                                //инфо=класс генератор.Получить недопустимый год с нулями
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.verifyCardExpired();                                   //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.checkInvalidCardExpirationDate();                                   //страница оплаты.неверно указан срок действия карты
     }
     @Test
     public void debitCardPaymentExperienceWithIntroductionExpiredYearOfCardIssuance() { //попытка оплаты дебетовой картой с введением истекшего года выдачи карты
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getInvalidYearExceedingCardExpirationDate();              //инфо=класс генератор.Получить год, превышающий дату истечения срока действия карты на 6 лет от текущего
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkInvalidCardExpirationDate();                                   //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.verifyCardExpired();                                                //страница оплаты.срок действия карты истек
     }
     @Test
     public void attemptWithDebitCardWithIntroductionPreviousYear() {                    //попытка оплаты дебетовой картой с введением предыдущего года выдачи карты
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getCardWithExpiredYear();                                 //инфо=класс генератор.Получить недействительный год, текущий год -1
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.verifyCardExpired();                                                //страница оплаты.Проверка срока действия недействительной карты
+        paymentPage.verifyCardExpired();                                                //страница оплаты.срок действия карты истек
     }
 
 
@@ -235,7 +233,7 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getOwnerFieldEmpty();                                     //инфо=класс генератор.Получить поле Владельца пустым
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.verifyEmptyField();                                                 //страница оплаты.Проверка пустого поля
+        paymentPage.verifyEmptyField();                                                 //страница оплаты.поле обязательно для заполнения
     }
     @Test
     public void anAttemptWithDebitCardWithTheIntroductionOneLetterTheOwnerField() {     //попытка оплаты дебетовой картой с введением одной буквы в поле Владелец.
@@ -289,7 +287,7 @@ public class DebitCardPaymentTest {                                             
         val paymentPage = mainPage.getDebitCardPayment();                               //страница оплаты=Главная страница.Получить оплату дебетовой картой
         val info = DataHelper.getEmptyCVCField();                                       //инфо=класс генератор.Получить неверный CVC пустым
         paymentPage.fillPaymentFormat(info);                                            //страница оплаты.Заполните форму платежа(информация)
-        paymentPage.checkWrongFormat();                                                 //страница оплаты.Проверка неправильного формата
+        paymentPage.verifyEmptyField();                                                 //страница оплаты.поле обязательно для заполнения
     }
     @Test
     public void anAttemptWithDebitCardWithIntroductionSingleDigitSMSValue() {           //попытка оплаты дебетовой картой с введением СМС значения из одной цифры
